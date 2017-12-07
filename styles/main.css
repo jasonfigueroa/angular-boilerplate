@@ -1,3 +1,11 @@
 .hidden {
   display: none;
 }
+
+.listStyleNone {
+  list-style-type: none;
+}
+
+.red {
+  color: red;
+}

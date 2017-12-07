@@ -1,10 +1,12 @@
 angular
-.module("NgBoilerApp") // TODO change NgBoilerApp to app name
-.controller("View1Ctrl", function ($scope, View1Factory) {
-    $scope.employee = {};
+// TODO change NgBoilerApp to app name
+.module("NgBoilerApp")
+// TODO change LoginCtrl to controller name
+.controller("LoginCtrl", function ($scope) {
+  $scope.employee = {};
 
-    $scope.loginEmail = '';
-    $scope.loginPassword = '';
+  $scope.loginEmail = '';
+  $scope.loginPassword = '';
 
     // add login event
   $scope.login = () => {
@@ -15,6 +17,7 @@ angular
     promise.catch(e => console.log(e.message));
   }
 
+  // TODO add autologin on creation and clear text boxes
   $scope.signUp = () => {
     const email = $scope.loginEmail;
     const pass = $scope.loginPassword;
@@ -26,24 +29,22 @@ angular
   $scope.logout = () => {
     firebase.auth().signOut();
   };
-  $scope.addEmployee = () => {
-    View1Factory.add($scope.employee);
-    // console.log($scope.employee);
-    // console.log(`first name: ${$scope.employee.fname}`);
-    // console.log(`last name: ${$scope.employee.lname}`);
 
-  };
-
-  // add a realtime listener
+  // // add a realtime listener
   firebase.auth().onAuthStateChanged(firebaseUser => {
     if(firebaseUser) {
       console.log(firebaseUser);
       console.log('logged in');
-      // btnLogout.classList.remove('hidden');
-      // adminForm.classList.remove('hidden');
+
+      // display hidden items
+      angular.element(document.querySelector('#createEmployeeAnchor')).removeClass('hidden');
+      angular.element(document.querySelector('#btnLogout')).removeClass('hidden');
     } else {
       console.log('not logged in');
-      // btnLogout.classList.add('hidden');
+      
+      // hide items
+      angular.element(document.querySelector('#createEmployeeAnchor')).addClass('hidden');
+      angular.element(document.querySelector('#btnLogout')).addClass('hidden');
     }
   });
 
